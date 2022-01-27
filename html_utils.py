@@ -9,6 +9,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoSuchElementException
 
 def list_all_select_options(driver: webdriver, id: str):
   select_element = Select(driver.find_element(By.ID, id))
@@ -16,15 +17,29 @@ def list_all_select_options(driver: webdriver, id: str):
   for opt in select_element.options:
     print(opt.get_attribute('text'))
 
+
 def select_option_in(driver: webdriver, id: str, text: str):
   element = Select(driver.find_element(By.ID, id))
   element.select_by_visible_text(text)
+
+
+def click_by(driver: webdriver, criteria: By, query: str):
+  driver.find_element(criteria, query).click()
+
+
+def check_message(driver: webdriver, criteria: By, query: str, text: str):
+  try:
+    return EC.text_to_be_present_in_element((criteria, query), text)(driver)
+  except NoSuchElementException:
+    logging.warning(f'"{query}" element not found')
+    return False
+
 
 def click_recaptcha(driver: webdriver):
   try:
     driver.switch_to.frame(driver.find_element(By.TAG_NAME, 'iframe'))
     check_box = WebDriverWait(driver, 10).until(
-      EC.presence_of_element_located((By.ID ,HTML_RECAPTCHA_BOX_ID))
+      EC.presence_of_element_located((By.ID, HTML_RECAPTCHA_BOX_ID))
     )
 
     sleep(0.5)

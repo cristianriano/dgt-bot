@@ -9,3 +9,5 @@ HTML_SELECT_TRAMITE_ID='publicacionesForm:tipoTramite'
 HTML_SELECT_PAIS_ID='publicacionesForm:pais'
 
 HTML_RECAPTCHA_BOX_ID='recaptcha-anchor'
+
+LIMIT_REACHED_MSG='Message monitor limit exceeded'

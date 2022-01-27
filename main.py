@@ -5,7 +5,7 @@ import pdb
 from constants import *
 from html_utils import *
 from selenium import webdriver
-
+from selenium.webdriver.common.by import By
 
 def init_driver():
   logging.info('Initializing driver')
@@ -33,7 +33,10 @@ def run():
 
     fill_select_boxes(driver)
     click_recaptcha(driver)
+    click_by(driver, By.CSS_SELECTOR, 'input[value="Continuar"]')
+
     pdb.set_trace()
+    check_message(driver, By.CSS_SELECTOR, 'ul>li.msgError', 'robot')
   finally:
     driver.quit()
 
