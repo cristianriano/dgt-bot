@@ -22,8 +22,11 @@ def clean_cookies_and_session_data(driver: webdriver):
 
 def fill_select_boxes(driver: webdriver):
   select_option_in(driver, HTML_SELECT_OFICINAS_ID, OFICINA)
+  sleep(1)
   select_option_in(driver, HTML_SELECT_TRAMITE_ID, TRAMITE)
+  sleep(1)
   select_option_in(driver, HTML_SELECT_PAIS_ID, PAIS)
+  sleep(1)
 
 def check_limit_reached(driver: webdriver):
   if check_message(driver, By.TAG_NAME, 'body', LIMIT_REACHED_MSG):
@@ -38,6 +41,8 @@ def wait():
 def test_office_availability(driver: webdriver):
   fill_select_boxes(driver)
   click_recaptcha(driver)
+  sleep(1)
+  input()
   click_button(driver, 'Continuar')
   return not check_error_message(driver, OFFICE_FULL_MSG)
 

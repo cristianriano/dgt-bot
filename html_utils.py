@@ -30,7 +30,7 @@ def click_by(driver: webdriver, criteria: By, query: str):
     raise e
 
 def click_button(driver: webdriver, label: str):
-  click_by(driver, By.CSS_SELECTOR, f'inpput[value="{label}"]')
+  click_by(driver, By.CSS_SELECTOR, f'input[value="{label}"]')
 
 def check_message(driver: webdriver, criteria: By, query: str, text: str):
   try:
