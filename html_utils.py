@@ -18,19 +18,19 @@ def list_all_select_options(driver: webdriver, id: str):
   for opt in select_element.options:
     print(opt.get_attribute('text'))
 
-
 def select_option_in(driver: webdriver, id: str, text: str):
   element = Select(driver.find_element(By.ID, id))
   element.select_by_visible_text(text)
 
-
-def click_button(driver: webdriver, label: str):
+def click_by(driver: webdriver, criteria: By, query: str):
   try:
-    driver.find_element(By.CSS_SELECTOR, f'inpput[value="{label}"]').click()
+    driver.find_element(criteria, query).click()
   except NoSuchElementException as e:
-    logging.warning(f"Can't click Button \"{label}\". Not found")
+    logging.warning(f"Can't click Button \"{query}\". Not found")
     raise e
 
+def click_button(driver: webdriver, label: str):
+  click_by(driver, By.CSS_SELECTOR, f'inpput[value="{label}"]')
 
 def check_message(driver: webdriver, criteria: By, query: str, text: str):
   try:

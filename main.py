@@ -26,7 +26,7 @@ def fill_select_boxes(driver: webdriver):
   select_option_in(driver, HTML_SELECT_PAIS_ID, PAIS)
 
 def check_limit_reached(driver: webdriver):
-  if check_error_message(driver, LIMIT_REACHED_MSG):
+  if check_message(driver, By.TAG_NAME, 'body', LIMIT_REACHED_MSG):
     logging.error('You reached the limit of requests! Try later')
     exit(1)
 
@@ -41,7 +41,9 @@ def test_office_availability(driver: webdriver):
   click_button(driver, 'Continuar')
   return not check_error_message(driver, OFFICE_FULL_MSG)
 
-def fill_personal_data(driver: webdriver)
+def fill_personal_data(driver: webdriver):
+  # driver.
+  1
 
 def run():
   driver = init_driver()
@@ -63,6 +65,7 @@ def run():
       pdb.set_trace()
     except Exception as e:
       logging.error(e)
+      wait()
       continue
 
   driver.quit()
