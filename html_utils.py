@@ -34,6 +34,9 @@ def check_message(driver: webdriver, criteria: By, query: str, text: str):
     logging.warning(f'"{query}" element not found')
     return False
 
+def check_error_message(driver: webdriver, text: str):
+  return check_message(driver, By.CSS_SELECTOR, ERROR_MESSAGE_SELECTOR, text)
+
 
 def click_recaptcha(driver: webdriver):
   try:
