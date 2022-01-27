@@ -38,15 +38,17 @@ def wait():
 def test_office_availability(driver: webdriver):
   fill_select_boxes(driver)
   click_recaptcha(driver)
-  click_by(driver, By.CSS_SELECTOR, 'input[value="Continuar"]')
+  click_button(driver, 'Continuar')
   return not check_error_message(driver, OFFICE_FULL_MSG)
 
-def run():
-  try:
-    driver = init_driver()
+def fill_personal_data(driver: webdriver)
 
-    for i in range(MAX_ATTEMPTS):
-      logging.info(f'Attempt #{i}')
+def run():
+  driver = init_driver()
+
+  for i in range(MAX_ATTEMPTS):
+    try:
+      logging.info(f'Attempt #{i} in {OFICINA}')
       clean_cookies_and_session_data(driver)
       driver.get(BASE_URL)
 
@@ -54,11 +56,16 @@ def run():
       if not test_office_availability(driver):
         wait()
         continue
-      else:
-        pdb.set_trace()
 
-  finally:
-    driver.quit()
+      click_button(driver, 'Continuar')
+      save_screenshot(driver, 'first-step')
+      fill_personal_data()
+      pdb.set_trace()
+    except Exception as e:
+      logging.error(e)
+      continue
+
+  driver.quit()
 
 if __name__ == '__main__':
   run()

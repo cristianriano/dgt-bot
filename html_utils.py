@@ -2,6 +2,7 @@ import logging
 
 from constants import *
 from time import sleep
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 # from selenium.webdriver.common.keys import Keys
@@ -23,8 +24,12 @@ def select_option_in(driver: webdriver, id: str, text: str):
   element.select_by_visible_text(text)
 
 
-def click_by(driver: webdriver, criteria: By, query: str):
-  driver.find_element(criteria, query).click()
+def click_button(driver: webdriver, label: str):
+  try:
+    driver.find_element(By.CSS_SELECTOR, f'inpput[value="{label}"]').click()
+  except NoSuchElementException as e:
+    logging.warning(f"Can't click Button \"{label}\". Not found")
+    raise e
 
 
 def check_message(driver: webdriver, criteria: By, query: str, text: str):
@@ -37,6 +42,8 @@ def check_message(driver: webdriver, criteria: By, query: str, text: str):
 def check_error_message(driver: webdriver, text: str):
   return check_message(driver, By.CSS_SELECTOR, ERROR_MESSAGE_SELECTOR, text)
 
+def save_screenshot(driver: webdriver, name: str):
+  driver.save_screenshot(f'{name}-{datetime.now()}.png'.replace(":", "-"))
 
 def click_recaptcha(driver: webdriver):
   try:
