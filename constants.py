@@ -7,3 +7,5 @@ PAIS='Colombia'
 HTML_SELECT_OFICINAS_ID='publicacionesForm:oficina'
 HTML_SELECT_TRAMITE_ID='publicacionesForm:tipoTramite'
 HTML_SELECT_PAIS_ID='publicacionesForm:pais'
+
+HTML_RECAPTCHA_BOX_ID='recaptcha-anchor'

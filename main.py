@@ -1,12 +1,11 @@
 from distutils.command.clean import clean
 import logging
-import dgt_utils
+import pdb
 
 from constants import *
+from html_utils import *
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
-# from selenium.webdriver.common.keys import Keys
+
 
 def init_driver():
   logging.info('Initializing driver')
@@ -21,15 +20,20 @@ def clean_cookies_and_session_data(driver: webdriver):
     logging.error(f'Error cleaning local storage: {e}')
     pass
 
+def fill_select_boxes(driver: webdriver):
+  select_option_in(driver, HTML_SELECT_OFICINAS_ID, OFICINA)
+  select_option_in(driver, HTML_SELECT_TRAMITE_ID, TRAMITE)
+  select_option_in(driver, HTML_SELECT_PAIS_ID, PAIS)
+
 def run():
   try:
     driver = init_driver()
     clean_cookies_and_session_data(driver)
     driver.get(BASE_URL)
 
-    dgt_utils.select_option_in(driver, HTML_SELECT_OFICINAS_ID, OFICINA)
-    dgt_utils.select_option_in(driver, HTML_SELECT_TRAMITE_ID, TRAMITE)
-    dgt_utils.select_option_in(driver, HTML_SELECT_PAIS_ID, PAIS)
+    fill_select_boxes(driver)
+    click_recaptcha(driver)
+    pdb.set_trace()
   finally:
     driver.quit()
 
