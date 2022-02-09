@@ -6,8 +6,18 @@ Python script to attempt to get an appointment at the [DGT (Dirección General d
 
 - Python 3.9
 - Chrome Driver available in PATH. Download from [here](https://chromedriver.chromium.org/downloads)
+- Activate the venv with
+```bash
+python -m venv .ven
+source .venv/bin/activate
+```
 - Install dependencies\
 `pip install -r requirements.tx`
+
+## TODO
+- Figure out ReCaptcha (try anticaptchaofficial)
+- Fill the form (fields have no id or name)
+- Receive a list of oficinas
 
 ## Configuration
 
